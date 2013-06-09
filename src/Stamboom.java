@@ -28,6 +28,26 @@ public class Stamboom
 		return kinderen;
 	}
 	
+	public boolean voegHuwelijkToe(Persoon ouder, Persoon getrouwdMet)
+	{
+		if (this.ouder.equals(ouder))
+		{
+			this.getrouwdMet = getrouwdMet;
+			return true;
+		}
+		
+		else
+		{
+			for (Stamboom stamboom : kinderen)
+			{
+				if (stamboom.voegHuwelijkToe(ouder, getrouwdMet))
+					return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public boolean voegKindToeAanPersoon(Persoon ouder, Persoon kind)
 	{
 		if (this.ouder.equals(ouder))
