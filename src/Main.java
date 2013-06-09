@@ -48,6 +48,7 @@ public class Main
 
 		System.out.println("Aantal vrouwen in stamboom: " + stamboom.getAantalVrouwen());
 		System.out.println("Jongste persoon: " + stamboom.jongstePersoon());
+		System.out.println("Ouders van Kees: " + stamboom.geefOuders("Kees"));
 
 		try
 		{

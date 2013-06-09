@@ -164,4 +164,31 @@ public class Stamboom implements Serializable
 		
 		return null;
 	}
+	
+	public Pair<Persoon, Persoon> geefOuders(String naam)
+	{
+		if (naam.equals(ouder.getNaam()))
+		{
+			// unknown (person is root of the tree)
+			return null;
+		}
+
+		for (Stamboom stamboom : kinderen)
+		{
+			if (naam.equals(stamboom.ouder.getNaam()))
+			{
+				return new Pair<Persoon, Persoon>(ouder, getrouwdMet);
+			}
+			
+			else
+			{
+				Pair<Persoon, Persoon> ouders = stamboom.geefOuders(naam);
+				
+				if (ouders != null)
+					return ouders;
+			}
+		}	
+		
+		return null;
+	}
 }
