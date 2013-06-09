@@ -1,4 +1,4 @@
-public class Persoon
+public class Persoon implements Comparable<Persoon>
 {
 	private String naam;
 	private int geboorteJaar;
@@ -38,5 +38,11 @@ public class Persoon
 		
 		Persoon persoon = (Persoon)obj;
 		return (persoon.naam == this.naam && persoon.geboorteJaar == this.geboorteJaar && persoon.isMan == this.isMan); 
+	}
+
+	@Override
+	public int compareTo(Persoon o)
+	{
+		return o.geboorteJaar - this.geboorteJaar;
 	}
 }
