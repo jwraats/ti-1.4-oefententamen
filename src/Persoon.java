@@ -26,4 +26,17 @@ public class Persoon
 	{
 		return isMan;
 	}
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (!(obj instanceof Persoon))
+			return false;
+		
+		if (obj == this)
+			return true;
+		
+		Persoon persoon = (Persoon)obj;
+		return (persoon.naam == this.naam && persoon.geboorteJaar == this.geboorteJaar && persoon.isMan == this.isMan); 
+	}
 }
