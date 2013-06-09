@@ -1,8 +1,7 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Calendar;
@@ -91,7 +90,7 @@ public class Main
 				// This is *one* way to send strings across, using newlines as terminator
 				// DataOutputStream and DataInputStream are more useful when you're sending about numbers
 				BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				BufferedWriter output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+				ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
 
 				while (true)
 				{
@@ -126,34 +125,7 @@ public class Main
 					{
 						List<Stamboom> kinderen = stamboom.getKinderenVan(line);
 
-						String str;
-
-						if (kinderen == null)
-						{
-							str = line + " bestaat niet.";
-						}
-
-						else
-						{
-							str = line + " heeft " + kinderen.size() + " kinderen: ";
-
-							boolean first = true;
-
-							for (Stamboom kind : kinderen)
-							{
-								if (!first)
-								{
-									str += ", ";
-								}
-
-								first = false;
-								str += kind.getOuder();
-							}
-						}
-
-						output.write(str);
-						output.newLine();
-						output.flush();
+						output.writeObject(kinderen);
 					}
 				}
 

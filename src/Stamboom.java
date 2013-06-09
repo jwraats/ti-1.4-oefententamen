@@ -1,8 +1,11 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Stamboom
+public class Stamboom implements Serializable
 {
+	private static final long serialVersionUID = 2085848881870258709L;
+	
 	private Persoon ouder;
 	private Persoon getrouwdMet;
 	private List<Stamboom> kinderen;

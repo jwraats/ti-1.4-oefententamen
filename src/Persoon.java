@@ -1,5 +1,9 @@
-public class Persoon implements Comparable<Persoon>
+import java.io.Serializable;
+
+public class Persoon implements Comparable<Persoon>, Serializable
 {
+	private static final long serialVersionUID = 2835994758420625506L;
+	
 	private String naam;
 	private int geboorteJaar;
 	private boolean isMan;
