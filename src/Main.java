@@ -1,3 +1,12 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
+
 
 public class Main
 {
@@ -40,5 +49,73 @@ public class Main
 		
 		System.out.println("Aantal vrouwen in stamboom: " + stamboom.getAantalVrouwen());
 		System.out.println("Jongste persoon: " + stamboom.jongstePersoon());
+		
+		try
+		{
+			ServerSocket server = new ServerSocket(8000);
+			
+			while (true)
+			{
+				Socket socket = server.accept();
+				
+				// This is *one* way to send strings across, using newlines as terminator
+				// DataOutputStream and DataInputStream are more useful when you're sending about numbers
+				BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				BufferedWriter output = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+				
+				while (true)
+				{
+					String line = input.readLine();
+					
+					if (line == null)
+					{
+						break;
+					}
+
+					if (line.equals("bye"))
+					{
+						socket.close();
+						break;
+					}
+					
+					else
+					{
+						List<Stamboom> kinderen = stamboom.getKinderenVan(line);
+						
+						String str;
+						
+						if (kinderen == null)
+						{
+							str = line + " bestaat niet.";
+						}
+						
+						else
+						{
+							str = line + " heeft " + kinderen.size() + " kinderen: ";
+							
+							boolean first = true;
+	
+							for (Stamboom kind : kinderen)
+							{
+								if (!first)
+								{
+									str += ", ";
+								}
+								
+								first = false;
+								str += kind.getOuder();
+							}
+						}
+							
+						output.write(str);
+						output.newLine();
+						output.flush();
+					}
+				}
+			}
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

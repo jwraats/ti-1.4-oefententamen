@@ -114,4 +114,26 @@ public class Stamboom
 	{
 		return jongstePersoon(ouder);
 	}
+	
+	public List<Stamboom> getKinderenVan(String naam)
+	{
+		if (this.ouder.getNaam().equals(naam))
+		{
+			return kinderen;
+		}
+		
+		else
+		{
+			for (Stamboom stamboom : kinderen)
+			{
+				List<Stamboom> kinderen = stamboom.getKinderenVan(naam);
+				
+				if (kinderen != null)
+					return kinderen;
+			}
+			
+			return null;
+		}
+		
+	}
 }
