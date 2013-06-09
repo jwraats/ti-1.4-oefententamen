@@ -89,4 +89,29 @@ public class Stamboom
 		
 		return aantal;
 	}
+	
+	private Persoon jongstePersoon(Persoon jongste)
+	{
+		if (jongste.compareTo(this.ouder) > 0)
+		{
+			jongste = this.ouder;
+		}
+		
+		if (getrouwdMet != null && jongste.compareTo(getrouwdMet) > 0)
+		{
+			jongste = getrouwdMet;
+		}
+		
+		for (Stamboom stamboom : kinderen)
+		{
+			jongste = stamboom.jongstePersoon(jongste);
+		}	
+		
+		return jongste;
+	}
+
+	public Persoon jongstePersoon()
+	{
+		return jongstePersoon(ouder);
+	}
 }

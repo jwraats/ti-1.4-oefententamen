@@ -8,7 +8,7 @@ public class Main
 		// Kinderen van opa en oma
 		Persoon fred = new Persoon("Fred", 1958, true);
 		Persoon paul = new Persoon("Paul", 1954, true);
-		Persoon carice = new Persoon("Carice", 1950, false);
+		Persoon carice = new Persoon("Carice", 1992, false);
 		
 		// Kinderen van Fred (en Anna)
 		Persoon kees = new Persoon("Kees", 1950, true);
@@ -39,5 +39,6 @@ public class Main
 		Stamboom stamboom = getStamboom();
 		
 		System.out.println("Aantal vrouwen in stamboom: " + stamboom.getAantalVrouwen());
+		System.out.println("Jongste persoon: " + stamboom.jongstePersoon());
 	}
 }

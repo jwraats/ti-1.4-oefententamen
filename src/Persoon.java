@@ -28,6 +28,12 @@ public class Persoon implements Comparable<Persoon>
 	}
 	
 	@Override
+	public String toString()
+	{
+		return getNaam() + " (" + getGeboorteJaar() + ")";
+	}
+	
+	@Override
 	public boolean equals(Object obj)
 	{
 		if (!(obj instanceof Persoon))
