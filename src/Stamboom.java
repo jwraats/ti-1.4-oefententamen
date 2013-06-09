@@ -48,7 +48,9 @@ public class Stamboom
 		return false;
 	}
 	
-	public boolean voegKindToeAanPersoon(Persoon ouder, Persoon kind)
+	// synchronized zorgt ervoor dat de methode niet langer tegelijk kan worden uitgevoerd door verschillende threads
+	// aangezien verschillende clients tegelijk personen kunnen toevoegen zou anders de lijst corrupt kunnen raken
+	public synchronized boolean voegKindToeAanPersoon(Persoon ouder, Persoon kind)
 	{
 		if (this.ouder.equals(ouder))
 		{
@@ -135,5 +137,28 @@ public class Stamboom
 			return null;
 		}
 		
+	}
+	
+	public Persoon findPersoon(String naam)
+	{
+		if (naam.equals(ouder.getNaam()))
+		{
+			return ouder;
+		}
+		
+		if (getrouwdMet != null && naam.equals(getrouwdMet.getNaam()))
+		{
+			return getrouwdMet;
+		}
+		
+		for (Stamboom stamboom : kinderen)
+		{
+			Persoon persoon = stamboom.findPersoon(naam);
+			
+			if (persoon != null)
+				return persoon;
+		}	
+		
+		return null;
 	}
 }

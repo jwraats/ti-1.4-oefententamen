@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Calendar;
 import java.util.List;
 
 public class Main
@@ -57,7 +58,7 @@ public class Main
 			{
 				Socket socket = server.accept();
 
-				Thread th = new Thread(new Connection(socket));
+				Thread th = new Thread(new Connection(socket, getStamboom()));
 				th.start();
 			}
 		} catch (IOException e)
@@ -74,10 +75,12 @@ public class Main
 	public class Connection implements Runnable
 	{
 		private Socket socket;
-
-		public Connection(Socket socket)
+		private Stamboom stamboom;
+		
+		public Connection(Socket socket, Stamboom stamboom)
 		{
 			this.socket = socket;
+			this.stamboom = stamboom;
 		}
 
 		@Override
@@ -104,10 +107,24 @@ public class Main
 						socket.close();
 						break;
 					}
+					
+					else if (line.equals("add"))
+					{
+						String ouderNaam = input.readLine();
+						String naam = input.readLine();
+						String geslacht = input.readLine();
+						
+						Persoon ouder = getStamboom().findPersoon(ouderNaam);
+						
+						if (ouder != null)
+						{
+							stamboom.voegKindToeAanPersoon(ouder, new Persoon(naam, Calendar.getInstance().get(Calendar.YEAR), (geslacht == "m")));
+						}
+					}
 
 					else
 					{
-						List<Stamboom> kinderen = getStamboom().getKinderenVan(line);
+						List<Stamboom> kinderen = stamboom.getKinderenVan(line);
 
 						String str;
 
