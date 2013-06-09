@@ -27,4 +27,24 @@ public class Stamboom
 	{
 		return kinderen;
 	}
+	
+	public boolean voegKindToeAanPersoon(Persoon ouder, Persoon kind)
+	{
+		if (this.ouder.equals(ouder))
+		{
+			kinderen.add(new Stamboom(kind));
+			return true;
+		}
+		
+		else
+		{
+			for (Stamboom stamboom : kinderen)
+			{
+				if (stamboom.voegKindToeAanPersoon(ouder, kind))
+					return true;
+			}
+		}
+		
+		return false;
+	}
 }
