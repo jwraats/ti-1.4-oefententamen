@@ -37,5 +37,7 @@ public class Main
 	public static void main(String args[])
 	{
 		Stamboom stamboom = getStamboom();
+		
+		System.out.println("Aantal vrouwen in stamboom: " + stamboom.getAantalVrouwen());
 	}
 }

@@ -67,4 +67,26 @@ public class Stamboom
 		
 		return false;
 	}
+	
+	public int getAantalVrouwen()
+	{
+		int aantal = 0;
+		
+		if (!ouder.isMan())
+		{
+			aantal++;
+		}
+		
+		if (getrouwdMet != null && !getrouwdMet.isMan())
+		{
+			aantal++;
+		}
+		
+		for (Stamboom stamboom : kinderen)
+		{
+			aantal += stamboom.getAantalVrouwen();
+		}
+		
+		return aantal;
+	}
 }
