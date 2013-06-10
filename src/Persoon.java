@@ -47,7 +47,7 @@ public class Persoon implements Comparable<Persoon>, Serializable
 			return true;
 		
 		Persoon persoon = (Persoon)obj;
-		return (persoon.naam == this.naam && persoon.geboorteJaar == this.geboorteJaar && persoon.isMan == this.isMan); 
+		return (persoon.naam.equals(this.naam) && persoon.geboorteJaar == this.geboorteJaar && persoon.isMan == this.isMan); 
 	}
 
 	@Override
