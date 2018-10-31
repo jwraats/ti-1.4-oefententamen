@@ -31,10 +31,15 @@ public class Persoon implements Comparable<Persoon>, Serializable
 		return isMan;
 	}
 	
+	public int getLeeftijd(int jaar){
+		return (jaar - geboorteJaar);
+	}
+	
+	
 	@Override
 	public String toString()
 	{
-		return getNaam() + " (" + getGeboorteJaar() + ")";
+		return getNaam() + " (" + getGeboorteJaar() + ") in 2018 was hij/zij "+getLeeftijd(2018);
 	}
 	
 	@Override
